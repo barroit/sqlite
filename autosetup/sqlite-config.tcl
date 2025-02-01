@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later and blessing
+
 # This file holds functions for autosetup which are specific to the
 # sqlite build tree.  They are in this file, instead of auto.def, so
 # that they can be reused in the TEA sub-tree. This file requires
@@ -253,12 +255,14 @@ proc sqlite-handle-common-feature-flags {} {
   foreach {boolFlag featureFlag ifSetEvalThis} {
     all         {} {
       # The 'all' option must be first in this list.
+      proj-opt-set crypto
       proj-opt-set fts4
       proj-opt-set fts5
       proj-opt-set geopoly
       proj-opt-set rtree
       proj-opt-set session
     }
+    crypto       -DSQLITE_ENABLE_CRYPTO  {}
     fts4         -DSQLITE_ENABLE_FTS4    {sqlite-affirm-have-math fts4}
     fts5         -DSQLITE_ENABLE_FTS5    {sqlite-affirm-have-math fts5}
     geopoly      -DSQLITE_ENABLE_GEOPOLY {proj-opt-set rtree}

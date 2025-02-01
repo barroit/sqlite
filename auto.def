@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later and blessing
+
 #/do/not/tclsh
 # ^^^ help out editors which guess this file's content type.
 #
@@ -127,6 +129,7 @@ set flags {
   json=1               => {Disable JSON functions}
   memsys5              => {Enable MEMSYS5}
   memsys3              => {Enable MEMSYS3}
+  crypto               => {Enable encryption support}
   fts3                 => {Enable the FTS3 extension}
   fts4                 => {Enable the FTS4 extension}
   fts5                 => {Enable the FTS5 extension}
