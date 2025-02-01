@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"**/autosetup/autosetup": "plaintext"
+	},
+	"fileHeaderComment.parameter": {
+		"*": {
+			"license": "GPL-3.0-or-later",
+			"year": "2025"
+		}
+	},
+}
