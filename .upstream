@@ -1,1 +1,4 @@
 sqlite	git@github.com:sqlite/sqlite.git
+openssl	git@github.com:openssl/openssl.git	openssl-3.4
+
+jom	http://download.qt.io/official_releases/jom/jom.zip
