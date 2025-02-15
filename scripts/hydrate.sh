@@ -2,11 +2,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 NDEBUG=$1
+opts='--disable-math --disable-json --disable-load-extension'
 
 if [[ -z $NDEBUG ]]; then
-	opts='--debug'
-else
-	opts='--disable-math --disable-json --disable-load-extension'
+	opts+=' --debug'
 fi
 
 mkdir -p build
