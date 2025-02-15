@@ -7,7 +7,7 @@ if git remote | grep -q sqlite; then
 	git switch sqlite
 	git pull sqlite master
 else
-	url=$(cat .upstream)
+	url=$(grep sqlite .upstream | cut -f2)
 
 	git remote add sqlite $url
 	git fetch sqlite master
