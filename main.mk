@@ -166,6 +166,8 @@ LDFLAGS.shlib ?= -shared
 LDFLAGS.rt ?= # nanosleep on some platforms
 LDFLAGS.icu ?= # -licui18n -licuuc -licudata
 CFLAGS.icu ?=
+LDFLAGS.crypto ?=
+CFLAGS.crypto ?=
 LDFLAGS.libsqlite3.soname ?= # see https://sqlite.org/src/forumpost/5a3b44f510df8ded
 LDFLAGS.libsqlite3.os-specific ?= # see https://sqlite.org/forum/forumpost/9dfd5b8fd525a5d7
 # libreadline (or a workalike):
@@ -414,7 +416,8 @@ LDFLAGS.libsqlite3 = \
   $(LDFLAGS.rpath) $(LDFLAGS.pthread) \
   $(LDFLAGS.math) $(LDFLAGS.dlopen) \
   $(LDFLAGS.zlib) $(LDFLAGS.icu) \
-  $(LDFLAGS.rt) $(LDFLAGS.configure)
+  $(LDFLAGS.crypto) $(LDFLAGS.rt) \
+  $(LDFLAGS.configure)
 
 #
 # $(install-dir.XYZ) = dirs for installation.
@@ -2024,7 +2027,7 @@ sqlite3$(T.exe):	shell.c sqlite3.c
 	$(T.link) -o $@ \
 		shell.c sqlite3.c \
 		$(CFLAGS.readline) $(SHELL_OPT) $(CFLAGS.icu) \
-		$(LDFLAGS.libsqlite3) $(LDFLAGS.readline)
+		$(CFLAGS.crypto) $(LDFLAGS.libsqlite3) $(LDFLAGS.readline)
 #
 # Build sqlite3$(T.exe) by default except in wasi-sdk builds.  Yes, the
 # semantics of 0 and 1 are confusingly swapped here.

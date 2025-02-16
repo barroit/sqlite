@@ -33,36 +33,14 @@ if (!(Test-Path openssl/.git)) {
 	cd ..
 }
 
-$vcvars_prefix = @(
-	'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools',
-	'C:\Program Files\Microsoft Visual Studio\2022\Community',
-	'C:\Program Files\Microsoft Visual Studio\2022\Professional'
-)
-
-if (!$args[0]) {
-	foreach ($prefix in $vcvars_prefix) {
-		$vcvars = "$prefix\VC\Auxiliary\Build\vcvarsall.bat"
-
-		if (Test-Path $vcvars) {
-			break;
-		}
-
-		Remove-Variable vcvars
-	}
-} elseif (Test-Path $args[0]) {
-	$vcvars = $args[0]
-}
-
-if (!$vcvars) {
-	Write-Error 'findvcvars.ps1 requires a valid vcvarsall.bat path'
-}
+$vcvars = ../scripts/findvcvars.ps1
 
 if (!(Test-Path build)) {
 	mkdir build
 }
 cd build
 
-$feature = 'no-shared', 'no-deprecated', 'no-stdio'
+$feature = 'no-shared', 'no-deprecated', 'no-stdio', 'no-sock'
 $option = "--prefix=$PWD/..", '--release'
 $cpu = $env:NUMBER_OF_PROCESSORS
 $target = 'build_sw install_sw'

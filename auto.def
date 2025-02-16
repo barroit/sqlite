@@ -70,5 +70,6 @@ sqlite-handle-line-editing
 sqlite-handle-load-extension
 sqlite-handle-math
 sqlite-handle-icu
+sqlite-handle-libcrypto
 sqlite-handle-emsdk
 sqlite-config-finalize

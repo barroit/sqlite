@@ -27,7 +27,7 @@ fi
 mkdir -p build
 cd build
 
-feature='no-shared no-deprecated no-stdio'
+feature='no-shared no-deprecated no-stdio no-sock'
 option="--prefix=$PWD/.. --release"
 
 ../openssl/Configure $feature $option

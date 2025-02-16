@@ -8,7 +8,9 @@
 # The toplevel directory of the source tree.  This is the directory
 # that contains this "Makefile.msc".
 #
+!IFNDEF TOP
 TOP = .
+!ENDIF
 
 # <<mark>>
 # Set this non-0 to create and use the SQLite amalgamation file.
@@ -145,6 +147,10 @@ BUILD_ZLIB = 1
 USE_ICU = 0
 !ENDIF
 # <</mark>>
+
+!IFNDEF USE_CRYPTO
+USE_CRYPTO = 0
+!ENDIF
 
 # Set this non-0 to dynamically link to the MSVC runtime library.
 #
@@ -1045,6 +1051,22 @@ ICULIBDIR = $(ICUDIR)\lib
 LIBICU = icuuc.lib icuin.lib
 !ENDIF
 
+!IFNDEF CRYPTODIR
+CRYPTODIR = $(TOP)\build.crypto
+!ENDIF
+
+!IFNDEF CRYPTOINCDIR
+CRYPTOINCDIR = $(CRYPTODIR)\include
+!ENDIF
+
+!IFNDEF CRYPTOLIBDIR
+CRYPTOLIBDIR = $(CRYPTODIR)\lib
+!ENDIF
+
+!IFNDEF LIBCRYPTO
+LIBCRYPTO = libcrypto.lib gdi32.lib advapi32.lib crypt32.lib user32.lib
+!ENDIF
+
 # This is the command to use for tclsh - normally just "tclsh", but we may
 # know the specific version we want to use.  This variable (TCLSH_CMD) may be
 # overridden via the environment prior to running nmake in order to select a
@@ -1193,6 +1215,13 @@ RCC = $(RCC) -I$(ICUINCDIR)
 !ENDIF
 # <</mark>>
 
+!IF $(USE_CRYPTO)!=0
+TCC = $(TCC) -DSQLITE_ENABLE_CRYPTO=1
+RCC = $(RCC) -DSQLITE_ENABLE_CRYPTO=1
+TCC = $(TCC) -I$(CRYPTOINCDIR)
+RCC = $(RCC) -I$(CRYPTOINCDIR)
+!ENDIF
+
 # Command line prefixes for compiling code, compiling resources,
 # linking, etc.
 #
@@ -1324,6 +1353,11 @@ LTLIBPATHS = $(LTLIBPATHS) /LIBPATH:$(ICULIBDIR)
 LTLIBS = $(LTLIBS) $(LIBICU)
 !ENDIF
 # <</mark>>
+
+!IF $(USE_CRYPTO)!=0
+LTLIBPATHS = $(LTLIBPATHS) /LIBPATH:$(CRYPTOLIBDIR)
+LTLIBS = $(LTLIBS) $(LIBCRYPTO)
+!ENDIF
 
 # You should not have to change anything below this line
 ###############################################################################

@@ -211,6 +211,15 @@ proc sqlite-config-bootstrap {buildMode} {
       }
     }
 
+    crypto {
+      {*} {
+        with-local-crypto:=../build.crypto
+          => {Specify the prefix to libcrypto; it should be dir/to/libcrypto.
+              A pkgconfig directory must exist under lib or lib64. This option
+              does nothing unless --crypto is specified.}
+      }
+    }
+
     # Options for ICU: International Components for Unicode
     icu {
       {*} {
@@ -1143,6 +1152,41 @@ proc sqlite-handle-icu {} {
     msg-result "ICU support is disabled."
   }
 }; # sqlite-handle-icu
+
+
+proc sqlite-handle-libcrypto {} {
+  define CFLAGS_CRYPTO ""
+  define LDFLAGS_CRYPTO ""
+
+  if {![proj-opt-truthy crypto]} {
+    return
+  } elseif [proj-opt-was-provided with-local-crypto] {
+    msg-result "Checking for Libcrypto support..."
+    global env
+
+    set prefix [opt-val with-local-crypto]
+
+    foreach name {lib lib64} {
+      set conf [file join $prefix lib64/pkgconfig]
+
+      if [file exists $conf] {
+        set env(PKG_CONFIG_PATH) $conf
+        break
+      }
+    }
+  }
+
+  if {[pkg-config-init 0] && [pkg-config libcrypto]} {
+    define CFLAGS_CRYPTO [get-define PKG_LIBCRYPTO_CFLAGS]
+    define LDFLAGS_CRYPTO [get-define PKG_LIBCRYPTO_LDFLAGS]
+
+    define-append LDFLAGS_CRYPTO [get-define PKG_LIBCRYPTO_LIBS]
+    msg-result "Find libcrypto with LDFLAGS: [get-define LDFLAGS_CRYPTO]"
+  } else {
+    dict unset ::autosetup(optset) crypto
+    msg-result "librypto is not available."
+  }
+}
 
 
 ########################################################################

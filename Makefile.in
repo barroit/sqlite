@@ -118,8 +118,10 @@ LDFLAGS.dlopen = @LDFLAGS_DLOPEN@
 LDFLAGS.readline = @LDFLAGS_READLINE@
 CFLAGS.readline = @CFLAGS_READLINE@
 LDFLAGS.icu = @LDFLAGS_ICU@
+LDFLAGS.crypto = @LDFLAGS_CRYPTO@
 LDFLAGS.rt = @LDFLAGS_RT@
 CFLAGS.icu = @CFLAGS_ICU@
+CFLAGS.crypto = @CFLAGS_CRYPTO@
 LDFLAGS.libsqlite3.soname = @LDFLAGS_LIBSQLITE3_SONAME@
 # soname: see https://sqlite.org/src/forumpost/5a3b44f510df8ded
 LDFLAGS.libsqlite3.os-specific = @LDFLAGS_MAC_CVERSION@ @LDFLAGS_OUT_IMPLIB@
