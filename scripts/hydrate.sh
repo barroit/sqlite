@@ -11,14 +11,18 @@ if grep -q -- --release <<< $@; then
 	release=1
 fi
 
-if grep -q -- --fast <<< $@; then
-	fast=1
+if grep -q -- --no-configure <<< $@; then
+	no_configure=1
+fi
+
+if grep -q -- --exe <<< $@; then
+	exe=1
 fi
 
 mkdir -p build
 cd build
 
-if [[ ! $fast ]]; then
+if [[ ! $no_configure ]]; then
 	opts='--disable-math --disable-json --disable-load-extension'
 
 	if [[ ! $release ]]; then
@@ -28,8 +32,10 @@ if [[ ! $fast ]]; then
 	../configure --crypto --with-local-crypto $opts
 fi
 
-make -j sqlite3.c sqlite3.h
+target='sqlite3.c sqlite3.h'
 
-if [[ ! $release ]]; then
-	make -j sqlite3
+if [[ $exe ]]; then
+	target+=' sqlite3'
 fi
+
+make -j $target
