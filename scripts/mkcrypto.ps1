@@ -22,9 +22,15 @@ if (!(Test-Path openssl/.git)) {
 	$line = $line -split '\t'
 
 	$repo = $line | Select-Object -Index 1
-	$branch = $line | Select-Object -Index 2
+	$tag = $line | Select-Object -Index 2
 
-	git clone --single-branch --branch=$branch $repo
+	git clone --single-branch $repo
+	cd openssl
+
+	git fetch --tags origin master
+	git reset --hard $tag
+
+	cd ..
 }
 
 $vcvars_prefix = @(

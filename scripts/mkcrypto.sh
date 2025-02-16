@@ -13,9 +13,15 @@ fi
 if [[ ! -d openssl/.git ]]; then
 	line=$(grep openssl ../.upstream)
 	repo=$(cut -f2 <<< $line)
-	branch=$(cut -f3 <<< $line)
+	tag=$(cut -f3 <<< $line)
 
-	git clone --single-branch --branch=$branch $repo
+	git clone --single-branch $repo
+	cd openssl
+
+	git fetch --tags origin master
+	git reset --hard $tag
+
+	cd ..
 fi
 
 mkdir -p build
