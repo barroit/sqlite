@@ -1,7 +1,8 @@
 {
 	"files.associations": {
 		"**/autosetup/autosetup": "plaintext",
-		".upstream": "plaintext"
+		".upstream": "plaintext",
+		"*.h.in": "c"
 	},
 	"fileHeaderComment.parameter": {
 		"*": {

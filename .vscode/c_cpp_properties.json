@@ -1,0 +1,21 @@
+{
+	"configurations": [
+		{
+			"name": "Linux",
+			"includePath": [
+				"${workspaceFolder}/src"
+			],
+			"defines": [
+				"SQLITE_ENABLE_CRYPTO"
+			],
+			"forcedInclude": [
+				"${workspaceFolder}/src/sqlite.h.in"
+			],
+			"compilerPath": "~/gcc",
+			"cStandard": "c17",
+			"cppStandard": "c++17",
+			"intelliSenseMode": "linux-gcc-x64"
+		}
+	],
+	"version": 4
+}
