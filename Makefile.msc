@@ -294,6 +294,10 @@ OPTIMIZATIONS = 2
 SESSION = 0
 !ENDIF
 
+!IFNDEF DISABLE_MATH
+DISABLE_MATH = 0
+!ENDIF
+
 # Set this to non-0 to enable support for the rbu extension.
 #
 !IFNDEF RBU
@@ -425,8 +429,9 @@ OPT_FEATURE_FLAGS = $(OPT_FEATURE_FLAGS) -DSQLITE_ENABLE_SESSION=1
 OPT_FEATURE_FLAGS = $(OPT_FEATURE_FLAGS) -DSQLITE_ENABLE_PREUPDATE_HOOK=1
 !ENDIF
 
-# Always enable math functions on Windows
+!IF $(DISABLE_MATH)==0
 OPT_FEATURE_FLAGS = $(OPT_FEATURE_FLAGS) -DSQLITE_ENABLE_MATH_FUNCTIONS
+!ENDIF
 
 # Should the rbu extension be enabled?  If so, add compilation options
 # to enable it.
