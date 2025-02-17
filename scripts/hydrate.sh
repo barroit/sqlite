@@ -3,7 +3,13 @@
 
 set -e
 
-if [[ ! -d build.crypto ]]; then
+if grep -q -- distclean <<< $@; then
+	cd build.crypto
+	rm -rf ../build bin build include lib*
+	exit
+fi
+
+if [[ ! -d build.crypto/include ]]; then
 	./scripts/mkcrypto.sh
 fi
 

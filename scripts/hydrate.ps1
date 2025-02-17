@@ -2,7 +2,15 @@
 
 $ErrorActionPreference = 'Stop'
 
-if (!(Test-Path build.crypto)) {
+if ($args -match 'distclean') {
+	cd build.crypto
+	rm -Recurse -Force -ErrorAction SilentlyContinue`
+	   ../install, ../build, bin, build, include, lib*
+	cd ..
+	exit
+}
+
+if (!(Test-Path build.crypto/include)) {
 	./scripts/mkcrypto.ps1
 }
 
