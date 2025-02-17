@@ -23,19 +23,27 @@ mkdir -p build
 cd build
 
 if [[ ! $no_configure ]]; then
-	opts='--disable-math --disable-json --disable-load-extension'
-
-	if [[ ! $release ]]; then
-		opts+=' --debug'
+	if [[ -f Makefile ]]; then
+		make distclean
 	fi
 
-	../configure --crypto --with-local-crypto $opts
+	option='--disable-math --disable-json --disable-load-extension'
+
+	if [[ ! $release ]]; then
+		option+=' --debug'
+	fi
+
+	if [[ ! $exe ]]; then
+		option+=" --prefix=$PWD/../install"
+	fi
+
+	../configure --crypto --with-local-crypto $option
 fi
 
-target='sqlite3.c sqlite3.h'
+target='libsqlite3.a install-lib install-headers'
 
 if [[ $exe ]]; then
-	target+=' sqlite3'
+	target='sqlite3'
 fi
 
 make -j $target

@@ -20,17 +20,25 @@ if (!(Test-Path build)) {
 cd build
 
 $vcvars = ../scripts/findvcvars.ps1
-$target = 'sqlite3.c sqlite3.h'
 $option = 'TOP=.. USE_CRYPTO=1'
+$target = 'libsqlite3.lib'
 
 if (!$release) {
 	$option += ' DEBUG=3'
 }
 
 if ($exe) {
-	$target += ' sqlite3.exe'
+	$target = 'sqlite3.exe'
 }
 
 cmd /c "`"$vcvars`" amd64 && nmake /f ../Makefile.msc $option $target"
 
 cd ..
+
+if (Test-Path install || $exe) {
+	exit
+}
+
+mkdir install, install/lib, install/include
+cp build/libsqlite3.lib install/lib
+cp build/sqlite3.h, build/sqlite3ext.h install/include
