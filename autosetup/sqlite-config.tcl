@@ -213,7 +213,7 @@ proc sqlite-config-bootstrap {buildMode} {
 
     crypto {
       {*} {
-        with-local-crypto:=../build.crypto
+        with-local-crypto:=../unix.build.crypto
           => {Specify the prefix to libcrypto; it should be dir/to/libcrypto.
               A pkgconfig directory must exist under lib or lib64. This option
               does nothing unless --crypto is specified.}

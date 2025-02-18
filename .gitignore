@@ -1,5 +1,4 @@
-/build
-/build.jom
-/build.crypto
-
-/install
+/unix.build*
+/unix.install
+/win32.build*
+/win32.install

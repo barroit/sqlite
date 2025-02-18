@@ -1057,7 +1057,7 @@ LIBICU = icuuc.lib icuin.lib
 !ENDIF
 
 !IFNDEF CRYPTODIR
-CRYPTODIR = $(TOP)\build.crypto
+CRYPTODIR = $(TOP)\win32.build.crypto
 !ENDIF
 
 !IFNDEF CRYPTOINCDIR

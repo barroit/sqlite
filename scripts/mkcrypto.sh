@@ -3,23 +3,31 @@
 
 set -e
 
-mkdir -p build.crypto
-cd build.crypto
+mkdir -p unix.build.crypto
+cd unix.build.crypto
 
 if [[ -f lib64/libcrypto.a ]]; then
 	exit
 fi
 
 if [[ ! -d openssl/.git ]]; then
-	line=$(grep openssl ../.upstream)
-	repo=$(cut -f2 <<< $line)
-	tag=$(cut -f3 <<< $line)
+	if [[ -d ../win32.build.crypto/openssl ]]; then
+		cp -r ../win32.build.crypto/openssl openssl
+		cd openssl
 
-	git clone --single-branch $repo
-	cd openssl
+		git reset --hard HEAD
+		git clean -dxf
+	else
+		line=$(grep openssl ../.upstream)
+		repo=$(cut -f2 <<< $line)
+		tag=$(cut -f3 <<< $line)
 
-	git fetch --tags origin master
-	git reset --hard $tag
+		git clone --single-branch $repo
+		cd openssl
+
+		git fetch --tags origin master
+		git reset --hard $tag
+	fi
 
 	cd ..
 fi

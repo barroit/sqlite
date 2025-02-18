@@ -4,12 +4,12 @@
 set -e
 
 if grep -q -- distclean <<< $@; then
-	cd build.crypto
-	rm -rf ../build bin build include lib*
+	cd unix.build.crypto
+	rm -rf ../unix.install ../unix.build bin build include lib*
 	exit
 fi
 
-if [[ ! -d build.crypto/include ]]; then
+if [[ ! -d unix.build.crypto/include ]]; then
 	./scripts/mkcrypto.sh
 fi
 
@@ -29,8 +29,8 @@ if grep -q -- --configure-only <<< $@; then
 	configure_only=1
 fi
 
-mkdir -p build
-cd build
+mkdir -p unix.build
+cd unix.build
 
 if [[ ! $no_configure ]]; then
 	if [[ -f Makefile ]]; then
@@ -44,7 +44,7 @@ if [[ ! $no_configure ]]; then
 	fi
 
 	if [[ ! $exe ]]; then
-		option+=" --prefix=$PWD/../install"
+		option+=" --prefix=$PWD/../unix.install"
 	fi
 
 	../configure --crypto --with-local-crypto $option

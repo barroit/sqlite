@@ -3,14 +3,14 @@
 $ErrorActionPreference = 'Stop'
 
 if ($args -match 'distclean') {
-	cd build.crypto
+	cd win32.build.crypto
 	rm -Recurse -Force -ErrorAction SilentlyContinue`
-	   ../install, ../build, bin, build, include, lib*
+	   ../win32.install, ../win32.build, bin, build, include, lib*
 	cd ..
 	exit
 }
 
-if (!(Test-Path build.crypto/include)) {
+if (!(Test-Path win32.build.crypto/include)) {
 	./scripts/mkcrypto.ps1
 }
 
@@ -22,10 +22,10 @@ if ($args -match '--exe') {
 	$exe = 1
 }
 
-if (!(Test-Path build)) {
-	mkdir build
+if (!(Test-Path win32.build)) {
+	mkdir win32.build
 }
-cd build
+cd win32.build
 
 $vcvars = ../scripts/findvcvars.ps1
 $option = 'TOP=.. USE_CRYPTO=1'
@@ -43,10 +43,10 @@ cmd /c "`"$vcvars`" amd64 && nmake /f ../Makefile.msc $option $target"
 
 cd ..
 
-if (Test-Path install || $exe) {
+if (Test-Path win32.install || $exe) {
 	exit
 }
 
-mkdir install, install/lib, install/include
-cp build/libsqlite3.lib install/lib
-cp build/sqlite3.h, build/sqlite3ext.h install/include
+mkdir win32.install, win32.install/lib, win32.install/include
+cp win32.build/libsqlite3.lib win32.install/lib
+cp win32.build/sqlite3.h, win32.build/sqlite3ext.h win32.install/include
