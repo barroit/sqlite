@@ -25,6 +25,10 @@ if grep -q -- --exe <<< $@; then
 	exe=1
 fi
 
+if grep -q -- --configure-only <<< $@; then
+	configure_only=1
+fi
+
 mkdir -p build
 cd build
 
@@ -44,6 +48,10 @@ if [[ ! $no_configure ]]; then
 	fi
 
 	../configure --crypto --with-local-crypto $option
+
+	if [[ $configure_only ]]; then
+		exit
+	fi
 fi
 
 target='libsqlite3.a install-lib install-headers'
