@@ -35,9 +35,8 @@ fi
 mkdir -p build
 cd build
 
-feature='no-shared no-deprecated no-stdio no-sock'
+feature='no-deprecated no-stdio no-sock'
 option="--prefix=$PWD/.. --release"
 
 ../openssl/Configure $feature $option
-make -j
-make install_sw
+make -j build_sw install_sw

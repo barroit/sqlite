@@ -49,7 +49,7 @@ if (!(Test-Path build)) {
 }
 cd build
 
-$feature = 'no-shared', 'no-deprecated', 'no-stdio', 'no-sock'
+$feature = 'no-deprecated', 'no-stdio', 'no-sock'
 $option = "--prefix=$PWD/..", '--release'
 $cpu = $env:NUMBER_OF_PROCESSORS
 $target = 'build_sw install_sw'
