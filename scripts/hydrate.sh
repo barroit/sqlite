@@ -54,7 +54,7 @@ if [[ ! $no_configure ]]; then
 	fi
 fi
 
-target='libsqlite3.a install-lib install-headers'
+target='install-lib install-so install-headers'
 
 if [[ $exe ]]; then
 	target='sqlite3'
