@@ -57,4 +57,6 @@ $target = 'build_sw install_sw'
 perl ../openssl/Configure CFLAGS='/FS' @feature @option
 cmd /c "`"$vcvars`" amd64 && `"$jom`" -j$cpu $target"
 
+cp libssl_static.lib, libcrypto_static.lib ../lib
+
 cd ../..
