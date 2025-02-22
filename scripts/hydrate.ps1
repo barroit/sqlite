@@ -50,6 +50,11 @@ if (Test-Path win32.install || $exe) {
 mkdir win32.install, win32.install/lib, `
       win32.install/bin, win32.install/include
 
-cp win32.build/libsqlite3.lib win32.install/lib
-cp win32.build/sqlite3.dll win32.install/bin
-cp win32.build/sqlite3.h, win32.build/sqlite3ext.h win32.install/include
+cd win32.build
+
+cp libsqlite3.lib ../win32.install/lib
+cp sqlite3.dll ../win32.install/bin
+cp sqlite3.lib ../win32.install/lib
+cp sqlite3.h, sqlite3ext.h ../win32.install/include
+
+cd ..
